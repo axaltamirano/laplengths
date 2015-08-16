@@ -1,0 +1,22 @@
+html, body {
+	background: #eee;
+}
+
+.container {
+	margin-top: 20px;
+}
+
+#main {
+	background: #fff;
+	border-radius: 5px;
+}
+
+footer {
+	padding-top: 20px;
+}
+
+@media print {
+	#settings {
+		display: none;
+	}
+}

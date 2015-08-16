@@ -1,0 +1,103 @@
+<!doctype html>
+<html ng-app='app'>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="app.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ACI 318-11 Development Lengths</title>
+  </head>
+  <body ng-controller="LapLength">
+  <div class="container">
+    <div id="main" class="row">
+        <h1 class="text-center col-xs-12">Development Length Calculator <small>Per ACI 318-11</small></h1>
+        <small class="text-center col-xs-12">f'<sub>c</sub>: {{fc}} psi<span ng-if="lightweight"> (lightweight)</span>, f<sub>y</sub>: {{fy}} psi, c<sub>s</sub>: {{spacing}}", c<sub>c</sub>: {{cover}}", epoxy: {{epoxy}}, confined: {{ties}}</small>
+          <div class="col-xs-12 col-md-4" id="settings">
+            <h4>Settings</h4>
+            <form>
+              <div class="form-group">
+                <label for="fc">Concrete strength, f'<sub>c</sub> (psi)</label>
+                <input type="text" ng-model="fc" class="form-control">
+                <span id="helpBlock" class="help-block" ng-if="getSqrtFc() == 100"><span class="label label-primary">Notice</span> sqrt(fc) is limited to 100 per Section 12.1.2</span>
+              </div>
+              <div class="form-group">
+                <label for="fy">Rebar strength, f<sub>y</sub> (psi)</label>
+                <input type="text" ng-model="fy" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="spacing">Clear spacing (in)</label>
+                <input type="text" ng-model="spacing" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="cover">Clear cover (in)</label>
+                <input type="text" ng-model="cover" class="form-control">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="ties">Is the bar confined with stirrups or ties per code minimum?
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="epoxy">Is the bar epoxy-coated?
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="lightweight">Is the concrete lightweight?
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="displayFeetInch">Format lengths in #'-#"?
+                </label>
+              </div>
+            </form>
+          </div>
+          <div class="col-xs-12 col-md-8">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                <th colspan="3"></th>
+                <th colspan="4" class="text-center">Development Length <button class="btn-link" data-toggle="popover" data-placement="right" data-trigger="focus" title="Development Length Determination" data-content="Development lengths are calculated per 12.2.2, 12.3, and 12.5. Per R12.2, smaller development values may be acceptable when using 12.2.3 in areas of large clear spacing and cover. A reduction in Ldc per 12.3.3 based on confinement is not accounted for, nor is a reduction in Ldh per 12.5.3."><i class="glyphicon glyphicon-info-sign"></i></button></th>
+                <th colspan="3" class="text-center">Class B Lap Length</th>
+                </tr>
+                <tr>
+                  <th>Bar Size</th>
+                  <th>d<sub>b</sub> (in)</th>
+                  <th>A<sub>s</sub> (in<sup>2</sup>)</th>
+                  <th><span data-toggle="tooltip" data-placement="top" title="Standard tension development">Ld</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title='Tension development above 12" of fresh concrete'>Ldt</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title='Tension development terminating in std hook'>Ldh</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title='Compression development'>Ldc</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title="Class B tension splice">Lb</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title='Class B tension splice above 12" of fresh concrete'>Lbt</span></th>
+                  <th><span data-toggle="tooltip" data-placement="top" title='Compression splice'>Lbc</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="bar in rebar">
+                  <td>#{{bar.id}}</td>
+                  <td>{{bar.db}}</td>
+                  <td>{{bar.a}}</td>
+                  <td>{{convertToFeetInch(calculateLd(bar.db,false))}}</td>
+                  <td>{{convertToFeetInch(calculateLd(bar.db,true))}}</td>
+                  <td>{{convertToFeetInch(calculateLdh(bar.db))}}</td>
+                  <td>{{convertToFeetInch(calculateLdc(bar.db))}}</td>
+                  <td>{{convertToFeetInch(calculateLb(bar.db,false))}}</td>
+                  <td>{{convertToFeetInch(calculateLb(bar.db,true))}}</td>
+                  <td>{{convertToFeetInch(calculateLbc(bar.db))}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <footer class="row">
+        <small class="col-xs-12">The information presented on this page has been prepared in accordance with recognized engineering principles and is for general information only. While it is believed to be accurate, this information should not be used or relied upon for any specific application without competent professional examination and verification of its accuracy, suitability, and applicability by a licensed professional engineer.</small>
+        </footer>
+    </div>
+  </body>
+</html>
