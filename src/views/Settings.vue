@@ -28,13 +28,13 @@
 					<b-select v-model="fcSelect">
 						<option v-for="option in fcSelectOptions" :value="option.value" :key="option.value">{{ option.displayName }}</option>
 					</b-select>
-					<b-input v-model="fc" v-show="showCustomFc"></b-input> 
+					<b-input type="number" v-model="fc" v-show="showCustomFc"></b-input> 
 				</b-field>
 				<b-field horizontal label="fy">
 					<b-select v-model="fySelect">
 						<option v-for="option in fySelectOptions" :value="option.value" :key="option.value">{{ option.displayName }}</option>
 					</b-select>
-					<b-input v-model="fy" v-show="showCustomFy"></b-input> 
+					<b-input type="number" v-model="fy" v-show="showCustomFy"></b-input> 
 				</b-field>
 				<div class="field">
 					<b-switch v-model="lightweightConcrete">Is concrete light-weight?</b-switch>
@@ -61,7 +61,7 @@
 					</b-switch>
 				</div>
 				<div class="field">
-					<b-switch v-model="hookedCoverSatisfied">Do transverse ties for compression development meet confirement requirements of 
+					<b-switch v-model="compressionConfinementSatisfied">Do transverse ties for compression development meet confirement requirements of 
 							<b-tooltip label="For a reduced 0.75 confinement factor, tie type and spacing need to meet table requirements for confinement" multilined><a>Table 25.4.9.3?</a></b-tooltip>
 					</b-switch>
 				</div>
@@ -77,8 +77,6 @@ export default {
   name: "home",
   data: () => {
 	  return {
-		  showCustomFc: false,
-		  showCustomFy: false,
 		  defaultsImperial: {
 			  fc: [{
 				  displayName: '3,000 psi',
@@ -154,6 +152,12 @@ export default {
 	  }
   },
   computed: {
+	  showCustomFc() {
+		  return this.$store.state.showCustomFc
+	  },
+	  showCustomFy() {
+		  return this.$store.state.showCustomFy
+	  },
 	  codeEdition: {
 		  get() {
 			  return this.$store.state.codeEdition
@@ -206,9 +210,9 @@ export default {
 			  if (value != null)
 			  {
 				  this.$store.commit('updateFc', value)
-				  this.showCustomFc = false
+				  this.$store.commit('updateShowCustomFc', false)
 			  } else {
-				  this.showCustomFc = true
+				  this.$store.commit('updateShowCustomFc', true)
 			  }
 		  }
 	  },
@@ -243,9 +247,9 @@ export default {
 			  if (value != null)
 			  {
 				  this.$store.commit('updateFy', value)
-				  this.showCustomFy = false
+				  this.$store.commit('updateShowCustomFy', false)
 			  } else {
-				  this.showCustomFy = true
+				  this.$store.commit('updateShowCustomFy', true)
 			  }
 		  }
 	  },

@@ -21,6 +21,8 @@ const store = new Vuex.Store({
 		hookedCoverSatisfied: false,
 		hookedConfinementSatisfied: false,
 		compressionConfinementSatisfied: false,
+		showCustomFc: false,
+		showCustomFy: false,
 	},
 	getters: {
 		table(state) {
@@ -82,6 +84,12 @@ const store = new Vuex.Store({
 		},
 		updateCompressionConfinementSatisfied(state, val) {
 			state.compressionConfinementSatisfied = val
+		},
+		updateShowCustomFc(state, val) {
+			state.showCustomFc = val
+		},
+		updateShowCustomFy(state, val) {
+			state.showCustomFy = val
 		}
 	}
 })
