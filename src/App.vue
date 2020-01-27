@@ -4,9 +4,16 @@
       <div class="container">
         <b-navbar>
           <template slot="end">
-            <b-navbar-item tag="router-link" :to="{ path: '/' }">App</b-navbar-item>
-            <b-navbar-item tag="router-link" :to="{ path: '/settings' }">Settings</b-navbar-item>
-            <b-navbar-item href="#">Github</b-navbar-item>
+			  <div class="buttons">
+        		<b-navbar-item class="button is-primary" tag="router-link" :to="{ path: '/settings' }">
+					<b-icon icon="cogs" size="is-small"></b-icon>
+					<span>Settings</span>
+				</b-navbar-item>
+            	<b-navbar-item class="button is-dark" href="https://github.com/axaltamirano/laplengths" target="_blank">
+					<b-icon icon="github-circle" size="is-small"></b-icon>
+					<span>Github</span>
+				</b-navbar-item>
+			  </div>
           </template>
         </b-navbar>
       </div>
@@ -22,7 +29,7 @@
     </section>
     <footer class="footer">
       <div class="container">
-        <div class="content has-text-centered">
+        <div class="content is-small">
           <p>
             The information presented on this page has been prepared in
             accordance with recognized engineering principles and is for general

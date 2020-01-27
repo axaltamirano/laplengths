@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<router-link to="/">Return to Table</router-link>
+		<router-link to="/">&larr; Return to Table</router-link><br /><br />
 		<h3 class="title is-4">Settings</h3>
 		<div class="columns">
 			<div class="column is-half">
 				<h4 class="subtitle is-5">General</h4>
-				<b-field horizontal label="Code Edition">
+				<b-field horizontal label="Code">
 					<b-select v-model="codeEdition">
 						<option v-for="option in codeEditions" :value="option" :key="option">ACI {{option}}</option>
 					</b-select>
@@ -24,18 +24,36 @@
 					</b-select>
 				</b-field>
 				<h4 class="subtitle is-5">Material Parameters</h4>
-				<b-field horizontal label="f`c">
-					<b-select v-model="fcSelect">
-						<option v-for="option in fcSelectOptions" :value="option.value" :key="option.value">{{ option.displayName }}</option>
-					</b-select>
-					<b-input type="number" v-model="fc" v-show="showCustomFc"></b-input> 
-				</b-field>
-				<b-field horizontal label="fy">
-					<b-select v-model="fySelect">
-						<option v-for="option in fySelectOptions" :value="option.value" :key="option.value">{{ option.displayName }}</option>
-					</b-select>
-					<b-input type="number" v-model="fy" v-show="showCustomFy"></b-input> 
-				</b-field>
+				<div class="field is-horizontal">
+					<div class="field-label is-normal">
+						<label class="label">f`<sub>c</sub></label>
+					</div>
+					<div class="field-body">
+						<div class="field">
+							<b-select v-model="fcSelect">
+								<option v-for="option in fcSelectOptions" :value="option.value" :key="option.value">{{ option.displayName }}</option>
+							</b-select>
+						</div>
+						<div class="field">
+							<b-input type="number" v-model="fc" v-show="showCustomFc"></b-input> 
+						</div>
+					</div>
+				</div>
+				<div class="field is-horizontal">
+					<div class="field-label is-normal">
+						<label class="label">f<sub>y</sub></label>
+					</div>
+					<div class="field-body">
+						<div class="field">
+							<b-select v-model="fySelect">
+								<option v-for="option in fySelectOptions" :value="option.value" :key="option.value">{{ option.displayName }}</option>
+							</b-select>
+						</div>
+						<div class="field">
+							<b-input type="number" v-model="fy" v-show="showCustomFy"></b-input> 
+						</div>
+					</div>
+				</div>
 				<div class="field">
 					<b-switch v-model="lightweightConcrete">Is concrete light-weight?</b-switch>
 				</div>
