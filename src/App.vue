@@ -1,32 +1,54 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <section>
+      <div class="container">
+        <b-navbar>
+          <template slot="end">
+            <b-navbar-item tag="router-link" :to="{ path: '/' }">App</b-navbar-item>
+            <b-navbar-item tag="router-link" :to="{ path: '/settings' }">Settings</b-navbar-item>
+            <b-navbar-item href="#">Github</b-navbar-item>
+          </template>
+        </b-navbar>
+      </div>
+    </section>
+    <section class="section" id="main">
+      <div class="container">
+        <h1 class="title">Rebar Development Length Calculator</h1>
+        <h4 class="subtitle">
+          Using ACI {{ codeEdition }} provisions
+        </h4>
+        <router-view />
+      </div>
+    </section>
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            The information presented on this page has been prepared in
+            accordance with recognized engineering principles and is for general
+            information only. While it is believed to be accurate, this
+            information should not be used or relied upon for any specific
+            application without competent professional examination and
+            verification of its accuracy, suitability, and applicability by a
+            licensed professional engineer.
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+export default {
+  name: "App",
+  computed: {
+	  codeEdition: {
+		  get() {
+			  return this.$store.state.codeEdition
+		  }
+	  }
   }
-}
-</style>
+};
+</script>
+
+<style lang="scss"></style>

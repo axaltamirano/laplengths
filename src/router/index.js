@@ -1,23 +1,26 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
+
 import Home from "../views/Home.vue";
+import Settings from "../views/Settings.vue"
 
 Vue.use(VueRouter);
+Vue.use(Buefy);
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: Home
+	component: Home,
+	props: true
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+	  path: "/settings",
+	  name: "settings",
+	  component: Settings,
+	  props: true
   }
 ];
 
