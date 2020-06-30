@@ -65,6 +65,9 @@
 							<b-tooltip label="For a reduced 1.2 epoxy modification factor instead of 1.5, clear cover must be at least 3*db and clear spacing at least 6*db" multilined><a>Table 25.4.2.4?</a></b-tooltip>
 					</b-switch>
 				</div>
+				<div class="field">
+					<b-switch v-model="includeSeismicIncrease">Include 1.25 increase for special seismic systems?</b-switch>
+				</div>
 			</div>
 			<div class="column is-half">
 				<h4 class="subtitle is-5">Advanced Parameters</h4>
@@ -321,6 +324,14 @@ export default {
 		  },
 		  set(value) {
 			  this.$store.commit('updateCompressionConfinementSatisfied', value)
+		  }
+	  },
+	  includeSeismicIncrease: {
+		  get() {
+			  return this.$store.state.includeSeismicIncrease
+		  }, 
+		  set(value) {
+			  this.$store.commit('updateIncludeSeismicIncrease', value)
 		  }
 	  }
   }
