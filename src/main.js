@@ -23,6 +23,7 @@ const store = new Vuex.Store({
 		compressionConfinementSatisfied: false,
 		showCustomFc: false,
 		showCustomFy: false,
+		includeSeismicIncrease: false
 	},
 	getters: {
 		table(state) {
@@ -38,6 +39,7 @@ const store = new Vuex.Store({
 				hookedCoverSatisfied: state.hookedCoverSatisfied,
 				hookedConfinementSatisfied: state.hookedConfinementSatisfied,
 				compressionConfinementSatisfied: state.compressionConfinementSatisfied,
+				includeSeismicIncrease: state.includeSeismicIncrease
 			}
 			return new lapLengthTable(args).getTable()
 		}
@@ -90,6 +92,9 @@ const store = new Vuex.Store({
 		},
 		updateShowCustomFy(state, val) {
 			state.showCustomFy = val
+		},
+		updateIncludeSeismicIncrease(state, val) {
+			state.includeSeismicIncrease = val
 		}
 	}
 })

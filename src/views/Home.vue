@@ -10,6 +10,7 @@
 						f`<sub>c</sub> = {{ fc }} {{ strengthUnit }}
 						<span v-if="lightweightConcrete">lightweight </span>
 						<span v-if="epoxyCoatedRebar" >epoxy </span>
+						<span v-if="includeSeismicIncrease" >with 1.25 special seismic system increase </span>
 						<router-link to="/settings"><b-icon icon="square-edit-outline" size="is-small"></b-icon>
 						</router-link>
 						</th>
@@ -84,6 +85,9 @@ export default {
 	  },
 	  epoxyCoatedRebar() {
 		  return this.$store.state.epoxyCoatedRebar
+	  },
+	  includeSeismicIncrease() {
+		  return this.$store.state.includeSeismicIncrease
 	  }
   }
 };
