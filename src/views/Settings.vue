@@ -154,6 +154,9 @@ export default {
 			  }, {
 				  displayName: '60 MPa',
 				  value: 60
+			  }, {
+				  displayName: 'Custom',
+				  value: null
 			  }],
 			  fy: [{
 				  displayName: '275 MPa',
